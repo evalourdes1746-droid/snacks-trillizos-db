@@ -1,30 +1,34 @@
--- 1. Categorías
+-- =============================================
+-- ESQUEMA DE BASE DE DATOS PARA NEGOCIO DE SNACKS
+-- =============================================
+
+-- 1. Categorías principales del menú
 CREATE TABLE CATEGORIAS (
     id_categoria INT IDENTITY(1,1) PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL
 );
 
--- 2. Productos principales del menú
+-- 2. Catálogo de productos con tamaño y precio
 CREATE TABLE PRODUCTOS (
     id_producto INT IDENTITY(1,1) PRIMARY KEY,
     id_categoria INT NOT NULL,
     nombre VARCHAR(100) NOT NULL,
-    tamano VARCHAR(20) NULL,
+    tamano VARCHAR(20) NULL, -- 'CH', 'M', 'G', '1/2 Ltr', '1 Ltr' o NULL si no aplica
     precio DECIMAL(10,2) NOT NULL,
     disponible BIT DEFAULT 1,
     CONSTRAINT FK_Productos_Categorias FOREIGN KEY (id_categoria) 
         REFERENCES CATEGORIAS(id_categoria)
 );
 
--- 3. INVENTARIO / INSUMOS (Aquí se descuenta el stock real)
+-- 3. Control de inventario físico (sabritas, bebidas, jarabes, helados)
 CREATE TABLE INSUMOS (
     id_insumo INT IDENTITY(1,1) PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL, -- Ej: 'Tostitos Verdes', 'Doritos Nacho', 'Arizona Sandía'
+    nombre VARCHAR(100) NOT NULL,
     stock_actual INT NOT NULL DEFAULT 0,
-    stock_minimo INT DEFAULT 5 -- Alerta si quedan pocos
+    stock_minimo INT DEFAULT 5
 );
 
--- 4. Opciones disponibles por Producto (Sabores o Sabritas permitidas)
+-- 4. Opciones/sabores permitidos por cada producto
 CREATE TABLE OPCIONES_PRODUCTO (
     id_opcion INT IDENTITY(1,1) PRIMARY KEY,
     id_producto INT NOT NULL,
@@ -33,7 +37,7 @@ CREATE TABLE OPCIONES_PRODUCTO (
     CONSTRAINT FK_OP_Insumos FOREIGN KEY (id_insumo) REFERENCES INSUMOS(id_insumo)
 );
 
--- 5. Encabezado de la Orden
+-- 5. Encabezado de ventas (Ticket)
 CREATE TABLE ORDENES (
     id_orden INT IDENTITY(1,1) PRIMARY KEY,
     fecha_hora DATETIME DEFAULT GETDATE(),
@@ -41,12 +45,12 @@ CREATE TABLE ORDENES (
     metodo_pago VARCHAR(20) DEFAULT 'Efectivo' CHECK (metodo_pago IN ('Efectivo', 'Tarjeta', 'Transferencia'))
 );
 
--- 6. Detalle de la Orden (incluye el sabor/sabrita elegida para descontar inventario)
+-- 6. Detalle de los ítems vendidos en la orden
 CREATE TABLE DETALLE_ORDENES (
     id_detalle INT IDENTITY(1,1) PRIMARY KEY,
     id_orden INT NOT NULL,
     id_producto INT NOT NULL,
-    id_insumo_elegido INT NULL, -- Registra la sabrita o sabor específico que pidió el cliente
+    id_insumo_elegido INT NULL, -- Registra la sabrita o sabor específico para descontar stock
     cantidad INT NOT NULL DEFAULT 1,
     precio_unitario DECIMAL(10,2) NOT NULL,
     subtotal DECIMAL(10,2) NOT NULL,
