@@ -11,33 +11,47 @@ INSERT INTO CATEGORIAS (nombre) VALUES
 ('Sabritas y Botanas');   -- id_categoria = 5
 
 -- 2. Cargar Insumos Físicos (Almacén Central)
-INSERT INTO INSUMOS (nombre, stock_actual, stock_minimo) VALUES 
--- Sabritas (id_insumo: 1 al 4)
-('Tostitos Verdes', 12, 3),
-('Tostitos Morados', 12, 3),
-('Doritos Nacho', 12, 3),
-('Chetos Flaming', 5, 1),
-('Ruffles Queso', 5, 1),
-('Chips verdes', 12, 3),
-('Chips Moradas', 12, 3),
--- Bebidas (id_insumo: 5 al 8)
-('Arizona Sandía', 6, 1),
-('Arizona Mucho Mango', 6, 1),
-('Arizona Kiwi con Fresa', 6, 1),
-('Pepsi Regular', 8, 1),
-('Pepsi 7up', 4, 1),
-('Pepsi Mirinda', 4, 1),
-('Pepsi Manzana', 4, 1),
-('Pepsi Squirt', 4, 1),
--- Jarabes de Raspados (id_insumo: 9 al 12)
-('Jarabe Ciruela', 10, 2),
-('Jarabe Tamarindo', 10, 2),
-('Jarabe Mango', 10, 2),
-('Jarabe Fresa', 10, 2),
--- Helados (id_insumo: 13 al 15)
-('Helado Chocolate', 12, 3),
-('Helado Vainilla', 12, 3),
-('Helado Galleta/Oreo', 15, 3);
+INSERT INTO INSUMOS (nombre, tipo_insumo, unidad_medida, stock_actual, stock_minimo) VALUES
+-- 1. Sabritas
+('Tostitos Verdes', 'Sabrita', 'Bolsa', 12, 3),
+('Tostitos Morados', 'Sabrita', 'Bolsa', 12, 3),
+('Doritos Nacho', 'Sabrita', 'Bolsa', 12, 3),
+('Chetos Flaming', 'Sabrita', 'Bolsa', 5, 1),
+('Ruffles Queso', 'Sabrita', 'Bolsa', 5, 1),
+('Chips verdes', 'Sabrita', 'Bolsa', 12, 3),
+('Chips Moradas', 'Sabrita', 'Bolsa', 12, 3),
+-- 2. Bebidas
+('Arizona Sandía', 'Bebida', 'Botella', 6, 1),
+('Arizona Mucho Mango', 'Bebida', 'Botella', 6, 1),
+('Arizona Kiwi con Fresa', 'Bebida', 'Botella', 6, 1),
+('Pepsi Regular', 'Bebida', 'Botella', 8, 1),
+('Pepsi 7up', 'Bebida', 'Botella', 4, 1),
+('Pepsi Mirinda', 'Bebida', 'Botella', 4, 1),
+('Pepsi Manzana', 'Bebida', 'Botella', 4, 1),
+('Pepsi Squirt', 'Bebida', 'Botella', 4, 1),
+-- 3. Toppings / Pastelitos
+('Gansito', 'Topping/Pastelito', 'Pieza', 15, 3),
+('Bocadin', 'Topping/Pastelito', 'Pieza', 30, 5),
+('Cacahuate Japonés', 'Topping/Pastelito', 'Bolsa', 20, 5),
+-- 4. Ingredientes y Materias Primas
+('Mezcla de Crema (Fresas)', 'Ingrediente', 'Litro', 5.0, 1.0),
+('Maíz para Esquite', 'Ingrediente', 'Kg', 10.0, 2.0),
+('Jarabe Mango', 'Ingrediente', 'Litro', 3.0, 1.0),
+('Queso Rallado', 'Ingrediente', 'Kg', 2.5, 0.5),
+-- 5. Desechables
+('Vaso 12oz (CH)', 'Desechable', 'Pieza', 100, 20),
+('Vaso 1 litro', 'Desechable', 'Pieza', 50, 10),
+('Plato Chimichanga', 'Desechable', 'Pieza', 80, 15),
+('Cuchara Plástica', 'Desechable', 'Pieza', 200, 30);
+-- 6. Jarabes para Raspados
+('Jarabe Ciruela', 'Ingrediente', 'Litro', 10, 2),
+('Jarabe Tamarindo', 'Ingrediente', 'Litro', 10, 2),
+('Jarabe Mango', 'Ingrediente', 'Litro', 10, 2),
+('Jarabe Fresa', 'Ingrediente', 'Litro', 10, 2),
+-- 7. Helados (Por sabor/unidad)
+('Helado Chocolate', 'Helado', 'Bote', 12, 3),
+('Helado Vainilla', 'Helado', 'Bote', 12, 3),
+('Helado Galleta/Oreo', 'Helado', 'Bote', 15, 3);
 
 -- 3. Insertar Productos del Menú
 
