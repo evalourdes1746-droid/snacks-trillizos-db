@@ -12,6 +12,7 @@ CREATE TABLE CATEGORIAS (
 CREATE TABLE INSUMOS (
     id_insumo INT IDENTITY(1,1) PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
+    tipo_insumo VARCHAR(30) NOT NULL, -- 'Ingrediente', 'Sabrita', 'Bebida', 'Desechable'
     stock_actual INT NOT NULL DEFAULT 0,
     stock_minimo INT DEFAULT 5
 );
