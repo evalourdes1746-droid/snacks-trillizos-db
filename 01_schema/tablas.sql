@@ -8,19 +8,7 @@ CREATE TABLE CATEGORIAS (
     nombre VARCHAR(50) NOT NULL
 );
 
--- 2. Catálogo de productos con tamaño y precio
-CREATE TABLE PRODUCTOS (
-    id_producto INT IDENTITY(1,1) PRIMARY KEY,
-    id_categoria INT NOT NULL,
-    nombre VARCHAR(100) NOT NULL,
-    tamano VARCHAR(20) NULL, -- 'CH', 'M', 'G', '1/2 Ltr', '1 Ltr' o NULL si no aplica
-    precio DECIMAL(10,2) NOT NULL,
-    disponible BIT DEFAULT 1,
-    CONSTRAINT FK_Productos_Categorias FOREIGN KEY (id_categoria) 
-        REFERENCES CATEGORIAS(id_categoria)
-);
-
--- 3. Control de inventario físico (sabritas, bebidas, jarabes, helados)
+-- 2. Control de inventario físico (sabritas, bebidas, jarabes, helados)
 CREATE TABLE INSUMOS (
     id_insumo INT IDENTITY(1,1) PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
@@ -28,7 +16,22 @@ CREATE TABLE INSUMOS (
     stock_minimo INT DEFAULT 5
 );
 
--- 4. Opciones/sabores permitidos por cada producto
+-- 3. Catálogo de productos con tamaño, precio e insumo directo (si aplica)
+CREATE TABLE PRODUCTOS (
+    id_producto INT IDENTITY(1,1) PRIMARY KEY,
+    id_categoria INT NOT NULL,
+    id_insumo INT NULL, -- Permite vincular si el producto es una sabrita/bebida individual
+    nombre VARCHAR(100) NOT NULL,
+    tamano VARCHAR(20) NULL, -- 'CH', 'M', 'G', '1/2 Ltr', '1 Ltr' o NULL
+    precio DECIMAL(10,2) NOT NULL,
+    disponible BIT DEFAULT 1,
+    CONSTRAINT FK_Productos_Categorias FOREIGN KEY (id_categoria) 
+        REFERENCES CATEGORIAS(id_categoria),
+    CONSTRAINT FK_Productos_Insumos FOREIGN KEY (id_insumo) 
+        REFERENCES INSUMOS(id_insumo)
+);
+
+-- 4. Opciones/sabores permitidos por cada producto preparado (ej. Tostilocos)
 CREATE TABLE OPCIONES_PRODUCTO (
     id_opcion INT IDENTITY(1,1) PRIMARY KEY,
     id_producto INT NOT NULL,
@@ -50,7 +53,7 @@ CREATE TABLE DETALLE_ORDENES (
     id_detalle INT IDENTITY(1,1) PRIMARY KEY,
     id_orden INT NOT NULL,
     id_producto INT NOT NULL,
-    id_insumo_elegido INT NULL, -- Registra la sabrita o sabor específico para descontar stock
+    id_insumo_elegido INT NULL, -- Registra la sabrita/sabor si el producto fue un preparado
     cantidad INT NOT NULL DEFAULT 1,
     precio_unitario DECIMAL(10,2) NOT NULL,
     subtotal DECIMAL(10,2) NOT NULL,
