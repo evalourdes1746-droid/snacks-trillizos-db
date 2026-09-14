@@ -13,15 +13,22 @@ INSERT INTO CATEGORIAS (nombre) VALUES
 -- 2. Cargar Insumos Físicos (Almacén Central)
 INSERT INTO INSUMOS (nombre, stock_actual, stock_minimo) VALUES 
 -- Sabritas (id_insumo: 1 al 4)
-('Tostitos Verdes', 24, 5),
-('Doritos Nacho', 18, 5),
-('Ruffles Queso', 15, 5),
-('Churrumais', 20, 5),
+('Tostitos Verdes', 12, 3),
+('Tostitos Morados', 12, 3),
+('Doritos Nacho', 12, 3),
+('Chetos Flaming', 5, 1),
+('Ruffles Queso', 5, 1),
+('Chips verdes', 12, 3),
+('Chips Moradas', 12, 3),
 -- Bebidas (id_insumo: 5 al 8)
-('Arizona Sandía', 12, 3),
-('Arizona Té Verde', 15, 3),
-('Pepsi Regular', 24, 6),
-('Pepsi Black', 12, 4),
+('Arizona Sandía', 6, 1),
+('Arizona Mucho Mango', 6, 1),
+('Arizona Kiwi con Fresa', 6, 1),
+('Pepsi Regular', 8, 1),
+('Pepsi 7up', 4, 1),
+('Pepsi Mirinda', 4, 1),
+('Pepsi Manzana', 4, 1),
+('Pepsi Squirt', 4, 1),
 -- Jarabes de Raspados (id_insumo: 9 al 12)
 ('Jarabe Ciruela', 10, 2),
 ('Jarabe Tamarindo', 10, 2),
